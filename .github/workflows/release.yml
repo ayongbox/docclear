@@ -124,7 +124,7 @@ jobs:
           mkdir -p package/docclear/plugins/redaction-rules
           mkdir -p package/docclear/scripts
 
-          cp target/${{ matrix.target }}/release/docclear-cli package/docclear/bin/docclear-cli
+          cp target/${{ matrix.target }}/release/docclear package/docclear/bin/docclear
           cp target/${{ matrix.target }}/release/docclear-mcp package/docclear/bin/docclear-mcp
           cp target/${{ matrix.target }}/release/docclear-web package/docclear/bin/docclear-web
           cp plugins/redaction-rules/*.yaml package/docclear/plugins/redaction-rules/
@@ -139,7 +139,7 @@ jobs:
           mkdir -p package/docclear/bin
           mkdir -p package/docclear/plugins/redaction-rules
 
-          cp target/${{ matrix.target }}/release/docclear-cli.exe package/docclear/bin/
+          cp target/${{ matrix.target }}/release/docclear.exe package/docclear/bin/
           cp target/${{ matrix.target }}/release/docclear-mcp.exe package/docclear/bin/
           cp target/${{ matrix.target }}/release/docclear-web.exe package/docclear/bin/
           cp plugins/redaction-rules/*.yaml package/docclear/plugins/redaction-rules/
@@ -187,7 +187,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install pnpm and frontend deps
         run: |
@@ -245,7 +245,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install pnpm and frontend deps
         run: |
@@ -302,7 +302,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install pnpm and frontend deps
         run: |
