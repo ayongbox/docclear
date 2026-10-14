@@ -42,7 +42,7 @@ jobs:
 
       - name: Clone private source
         working-directory: .
-        run: git clone --depth 1 --branch ${{ github.ref_name }} "$PRIVATE_REPO" src
+        run: git clone --depth 1 --branch ${{ github.ref_name }} "${{ env.PRIVATE_REPO }}" src
 
       - name: Version files consistency
         run: bash scripts/version.sh check
@@ -94,7 +94,7 @@ jobs:
 
       - name: Clone private source
         working-directory: .
-        run: git clone --depth 1 --branch ${{ github.ref_name }} "$PRIVATE_REPO" src
+        run: git clone --depth 1 --branch ${{ github.ref_name }} "${{ env.PRIVATE_REPO }}" src
 
       - uses: dtolnay/rust-toolchain@stable
         with:
@@ -104,11 +104,18 @@ jobs:
           key: release-${{ matrix.target }}
           workspaces: src
 
+      - name: Install aarch64 cross toolchain
+        if: matrix.target == 'aarch64-unknown-linux-gnu'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-aarch64-linux-gnu
+
       - name: Build release binaries
         run: |
           cargo build --release --target ${{ matrix.target }} -p docclear-cli -p docclear-mcp -p docclear-web
         env:
           RUSTFLAGS: "-C link-arg=-s"
+          CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
 
       - name: Package (Unix)
         if: runner.os != 'Windows'
@@ -122,7 +129,6 @@ jobs:
           cp target/${{ matrix.target }}/release/docclear-web package/docclear/bin/docclear-web
           cp plugins/redaction-rules/*.yaml package/docclear/plugins/redaction-rules/
           cp scripts/*.sh package/docclear/scripts/ 2>/dev/null || true
-          cp config.toml package/docclear/config.toml.example
 
           cd package
           tar czf ../${{ matrix.artifact }}.tar.gz docclear/
@@ -137,7 +143,6 @@ jobs:
           cp target/${{ matrix.target }}/release/docclear-mcp.exe package/docclear/bin/
           cp target/${{ matrix.target }}/release/docclear-web.exe package/docclear/bin/
           cp plugins/redaction-rules/*.yaml package/docclear/plugins/redaction-rules/
-          cp config.toml package/docclear/config.toml.example
 
           cd package
           7z a ../${{ matrix.artifact }}.zip docclear/
@@ -164,7 +169,7 @@ jobs:
 
       - name: Clone private source
         working-directory: .
-        run: git clone --depth 1 --branch ${{ github.ref_name }} "$PRIVATE_REPO" src
+        run: git clone --depth 1 --branch ${{ github.ref_name }} "${{ env.PRIVATE_REPO }}" src
 
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
@@ -186,7 +191,7 @@ jobs:
 
       - name: Install pnpm and frontend deps
         run: |
-          npm install -g pnpm@9
+          npm install -g pnpm@11
           cd apps/desktop
           pnpm install --frozen-lockfile
 
@@ -228,7 +233,7 @@ jobs:
 
       - name: Clone private source
         working-directory: .
-        run: git clone --depth 1 --branch ${{ github.ref_name }} "$PRIVATE_REPO" src
+        run: git clone --depth 1 --branch ${{ github.ref_name }} "${{ env.PRIVATE_REPO }}" src
 
       - uses: dtolnay/rust-toolchain@stable
         with:
@@ -244,7 +249,7 @@ jobs:
 
       - name: Install pnpm and frontend deps
         run: |
-          npm install -g pnpm@9
+          npm install -g pnpm@11
           cd apps/desktop
           pnpm install --frozen-lockfile
 
@@ -287,7 +292,7 @@ jobs:
 
       - name: Clone private source
         working-directory: .
-        run: git clone --depth 1 --branch ${{ github.ref_name }} "$PRIVATE_REPO" src
+        run: git clone --depth 1 --branch ${{ github.ref_name }} "${{ env.PRIVATE_REPO }}" src
 
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
@@ -301,7 +306,7 @@ jobs:
 
       - name: Install pnpm and frontend deps
         run: |
-          npm install -g pnpm@9
+          npm install -g pnpm@11
           cd apps/desktop
           pnpm install --frozen-lockfile
 
