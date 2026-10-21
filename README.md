@@ -7,7 +7,7 @@ OCR 自动识别，一键抹除。所有处理 100% 在本地完成，数据不�
 
 ## 下载
 
-前往 [Releases](../../releases/latest) 获取最新安装包：
+前往 [Releases](../../releases/latest) 获取最新安装包，或前往官网 <https://docclear.dao123.vip/> 下载：
 
 | 平台 | 安装包 |
 |---|---|
