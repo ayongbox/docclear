@@ -3,6 +3,8 @@
 **本地优先的敏感信息脱敏工具** —— 截图、PDF、Word 里的身份证号、银行卡、手机号、人脸，
 OCR 自动识别，一键抹除。所有处理 100% 在本地完成，数据不出你的电脑。
 
+![DocClear 应用界面：OCR 实时检测出示例文档中的 9 处敏感信息](docs/images/app-hero.png)
+
 ## 下载
 
 前往 [Releases](../../releases/latest) 获取最新安装包：
