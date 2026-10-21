@@ -11,7 +11,7 @@ OCR 自动识别，一键抹除。所有处理 100% 在本地完成，数据不�
 
 | 平台 | 安装包 |
 |---|---|
-| Windows | `.msi` / `.exe` |
+| Windows | `.exe`（NSIS 安装包） |
 | macOS（Intel + Apple Silicon 通用） | `.dmg` |
 | Linux | `.deb` / `.AppImage` |
 | CLI / MCP 服务 | 各平台 `.tar.gz` / `.zip` |
