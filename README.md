@@ -22,6 +22,10 @@ OCR 自动识别，一键抹除。所有处理 100% 在本地完成，数据不�
 >
 > 方法二：若右键打开仍被拦截，终端执行 `xattr -dr com.apple.quarantine /Applications/DocClear.app` 后正常双击启动。
 
+## 使用文档
+
+详细操作说明见 [使用指南](docs/使用指南.md)（桌面端 / CLI / MCP / Web API）。
+
 ## 特性
 
 - 🔍 OCR 自动检测敏感信息（证件号 / 银行卡 / 手机号 / 人脸等）
