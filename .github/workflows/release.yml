@@ -311,6 +311,9 @@ jobs:
     needs: [build, desktop-linux, desktop-macos, desktop-windows]
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
@@ -319,7 +322,9 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          generate_release_notes: true
+          # Release 正文取自发版脚本同步过来的版本说明（来自私库 docs/CHANGELOG.md），
+          # 本仓库没有功能提交，GitHub 自动生成的 notes 只有 docs 提交，无参考价值
+          body_path: RELEASE_NOTES.md
           files: artifacts/**/*
           draft: false
           prerelease: ${{ contains(github.ref, 'beta') || contains(github.ref, 'alpha') }}
