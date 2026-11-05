@@ -6,6 +6,16 @@
 
 格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)。
 
+## [0.8.0] - 2026-11-05
+
+### 新增
+
+- **PPT 原格式脱敏**（`.pptx`）：解析 zip 包内 `ppt/slides/slideN.xml` 与
+  `ppt/notesSlides/notesSlideN.xml` 的 `<a:t>`（drawingml）文本节点，对幻灯片正文
+  与演讲者备注中的敏感信息做掩码/假名/涂黑替换；`<a:rPr>` 格式属性与 XML 结构
+  原样保留；元数据（`docProps/core.xml`、`app.xml`）同步清理；桌面端以文本视图
+  分部件（幻灯片 / 备注）渲染预览
+
 ## [0.7.0] - 2026-11-04
 
 ### 新增
