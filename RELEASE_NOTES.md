@@ -1,34 +1,11 @@
-## [0.9.0] - 2026-11-15
-
-### 新增
-
-- **PPTX 版式预览**：按真实渲染整页幻灯片（`@aiden0z/pptx-renderer`），解析
-  `presentation.xml` 幻灯片顺序、`slideN.xml.rels` 与 `<a:off>/<a:ext>`，把文本
-  命中精确到 run、内嵌图片命中按归一化坐标叠加标注框；可随时切回文本审阅视图。
-- **通用 OOXML 内嵌图片检测**：docx（`word/media`）、xlsx（`xl/media`）、pptx
-  （`ppt/media`）统一接入人脸 / 印章等视觉规则，同一图片按内容哈希去重，多页
-  复用时只检测一次。
-- **PPTX 内嵌图片真正脱敏**：按命中区域替换 zip 内媒体字节，PNG 无损重编码、
-  JPEG 以 quality 90 重编码；支持逐条标记「不脱敏」，未命中的图片保持原样。
-- **图片命中的替换文字**：假名 / 掩码模式下在黑块中央绘制白色代号（`人脸A`、
-  `印章A`、`印****`），导出件与版式预览显示一致。
-- **PPTX 图片还原**：假名替换时在对照表中记录区域原始像素（媒体部件 + 源图
-  归一化区域），执行「假名还原」时把像素贴回媒体图片，能力与 PDF 图像补丁对齐。
-- **系统文件关联**：双击 pdf/docx/xlsx/pptx/csv/txt/md/图片 可直接导入文件列表，
-  覆盖应用冷启动与运行中再次打开两种场景。
+## [0.9.1] - 2026-11-15
 
 ### 修复
 
-- **PPTX 预览代号与原文重叠**：掩码 / 假名替换此前会把替换文字与原文拼在一起
-  显示；现改为原文透明撑宽 + 叠加白色代号，黑块内不再透出敏感原文。
-
-### 技术
-
-- 新增 `MediaHitInfo`（媒体路径 / 宿主幻灯片 / 源图区域）与唯一媒体锚点
-  `媒体路径#区域序号`，让「不脱敏」可以精确到单个人脸或印章。
-- `redact_embedded_images` 统一 docx / xlsx / pptx 的媒体涂黑与像素补丁记录；
-  白字复用 PDF 的 `draw_text_centered`，依赖 `ocr` feature 的 CJK 字体，无字体时
-  自动降级为纯黑块。
-- `MappingTable` 新增 `media_part`、`media_region`（旧对照表向后兼容）；PPTX 还原
-  对媒体条目只做像素回贴，不参与正文代号回填。
+- **macOS / Linux 无法打包**：`tauri-build` 2.6.3 在较新 Cargo 的构建目录布局
+  （`target/<triple>/release/build/<pkg>/<hash>/out`）下，把
+  `target/<triple>/release/build/docclear-mcp` 目录误当成 sidecar 目标文件删除，
+  导致构建脚本 panic（macOS `Operation not permitted`、Linux `Is a directory`）。
+  升级 `tauri-build` 至 2.7.4，改用上游修复后的 target 目录解析逻辑。Windows
+  构建不受影响。
 
